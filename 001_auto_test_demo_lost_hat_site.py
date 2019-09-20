@@ -42,9 +42,9 @@ class LoginPageTest(unittest.TestCase):
         driver.get(login_page_url)
 
         email_input = driver.find_element_by_xpath('//*[@class="form-control"]')
-        email_input.send_keys('expert.dev1@wp.pl')
+        email_input.send_keys('')
         password_input = driver.find_element_by_xpath('//*[@class="form-control js-child-focus js-visible-password"]')
-        password_input.send_keys('Wniosek1!')
+        password_input.send_keys('')
         submit_login_button = driver.find_element_by_xpath('//*[@class="btn btn-primary"]')
         submit_login_button.click()
         time.sleep(1.5)
