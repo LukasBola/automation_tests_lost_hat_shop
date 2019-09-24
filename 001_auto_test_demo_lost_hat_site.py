@@ -1,7 +1,7 @@
 from selenium import webdriver
 import unittest
 import time
-
+from settings import TestSettings
 
 class LoginPageTest(unittest.TestCase):
     """Tests for web site https://autodemo.testoneo.com/en/ ."""
@@ -9,7 +9,8 @@ class LoginPageTest(unittest.TestCase):
     @classmethod
     def setUp(self) -> None:
         """Method opens web browser before every single test in present class."""
-        self.driver = webdriver.Chrome(executable_path=r'E:\projects\howtotest\chromedriver_win32_76\chromedriver.exe')
+        driver_settings = TestSettings()
+        self.driver = webdriver.Chrome(driver_settings.executable_path)
         self.base_url = 'https://autodemo.testoneo.com/en'
         self.login_page_url = self.base_url + '/login?back=my-account'
         self.item_url = self.base_url + '/men/1-1-hummingbird-printed-t-shirt.html'
@@ -18,13 +19,6 @@ class LoginPageTest(unittest.TestCase):
     def tearDown(self) -> None:
         """Method closes web browser after every single test in present class."""
         self.driver.quit()
-
-    def test_open_login_page(self):
-        """Smoke test - open login page"""
-        driver = self.driver
-        driver.get(self.login_page_url)
-        time.sleep(2)
-        driver.save_screenshot('smoke_test_open_login_page.png')
 
     def test_login_form_header_name(self):
         """Checking if header name on teh login page is correct."""
@@ -70,6 +64,8 @@ class LoginPageTest(unittest.TestCase):
         driver.get(self.item_url)
 
         item_name = driver.find_element_by_xpath('//h1[@itemprop="name"]').get_attribute('innerText')
+        time.sleep(1)
+        driver.save_screenshot('smoke_test_open_login_page.png')
         self.assertEqual(expected_text, item_name, "Name of item is incorrect.")
         print(f"{100 * '='}\nName of item is: '{item_name}'.")
 
@@ -82,3 +78,29 @@ class LoginPageTest(unittest.TestCase):
         item_price = driver.find_element_by_xpath('//*[@itemprop="price"]').get_attribute('innerText')
         self.assertEqual(expected_price, item_price, f"Price is incorrect and equals: {item_price}.")
         print(f"{100 * '='}\nPrice of item equals: {item_price}.")
+
+    def test_login_with_incorrect_login_and_password(self):
+        """Checking log in to existing account."""
+        expected_text = "Authentication failed."
+        driver = self.driver
+        driver.get(self.login_page_url)
+        incorrect_user_email = 'incorrect_mail@test.com'
+        incorrect_user_pass = 'incorrect_password'
+
+        # finding login input box and sending value
+        email_input = driver.find_element_by_xpath('//*[@class="form-control"]')
+        email_input.send_keys(incorrect_user_email)
+
+        # finding password input box and sending value
+        password_input = driver.find_element_by_xpath('//*[@class="form-control js-child-focus js-visible-password"]')
+        password_input.send_keys(incorrect_user_pass)
+
+        # finding button 'sign in'
+        submit_login_button = driver.find_element_by_xpath('//*[@class="btn btn-primary"]')
+        submit_login_button.click()
+        time.sleep(1.5)
+
+        my_account_login_error_text = driver.find_element_by_xpath('//*[@class = "alert alert-danger"]').get_attribute(
+            'innerText')
+        self.assertEqual(expected_text, my_account_login_error_text, f"Header in my account page is incorrect.")
+        print(f"""{100 * '='}\nLogin error text for https://autodemo.testoneo.com/en/my-account is: '{my_account_login_error_text}'.""")
