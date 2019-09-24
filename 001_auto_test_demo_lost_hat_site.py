@@ -23,38 +23,41 @@ class LoginPageTest(unittest.TestCase):
         """Method closes web browser after every single test in present class."""
         self.driver.quit()
 
-
-    def test_login_form_header_name(self):
-        """Checking if header name on teh login page is correct."""
-        expected_text = "Log in to your account"
-        driver = self.driver
-        driver.get(self.login_page_url)
-        login_form_header_element = driver.find_element_by_xpath('//*[@class="page-header"]')
-        login_form_header_element_text = login_form_header_element.get_attribute('outerText')
-        self.assertEqual(expected_text, login_form_header_element_text,
-                         f"Header in login form on page {self.login_page_url} is incorrect.")
-        print(
-            f"{100 * '='}\nHeader name in login form on page {self.login_page_url} is: '{login_form_header_element_text}'.")
-
-    def test_login_to_existing_account(self):
-        """Checking log in to existing account."""
-        expected_text = "Your account"
-        driver = self.driver
-        driver.get(self.login_page_url)
-
+    def user_login(self, driver, user_email, user_password):
+        """Login to the account."""
         # finding login input box and sending value
         email_input = driver.find_element_by_xpath('//*[@class="form-control"]')
-        email_input.send_keys('test_777@test.com')
-
+        email_input.send_keys(user_email)
         # finding password input box and sending value
         password_input = driver.find_element_by_xpath('//*[@class="form-control js-child-focus js-visible-password"]')
-        password_input.send_keys('pass777')
-
+        password_input.send_keys(user_password)
         # finding button 'sign in'
         submit_login_button = driver.find_element_by_xpath('//*[@class="btn btn-primary"]')
         submit_login_button.click()
         time.sleep(1.5)
 
+    def assert_element_text(self, driver, xpath, expected_text):
+        """Checking assert baseed on outherText attribute value of given element."""
+        element_text = driver.find_element_by_xpath(xpath).get_attribute('outerText')
+        self.assertEqual(expected_text, element_text, f"Expected text differ from actual on page: {driver.current_url}")
+
+    def test_login_form_header_name(self):
+        """Checking if header name on teh login page is correct."""
+        expected_text = "Log in to your account"
+        driver = self.driver
+        login_form_header_element_xpath = '//*[@class="page-header"]'
+        driver.get(self.login_page_url)
+        self.assert_element_text(driver, login_form_header_element_xpath, expected_text)
+
+    def test_login_to_existing_account(self):
+        """Checking log in to existing account."""
+        expected_text = "Your account"
+        driver = self.driver
+        user_email = 'test_777@test.com'
+        user_password = 'pass777'
+
+        driver.get(self.login_page_url)
+        self.user_login(driver, user_email, user_password)
         my_account_header_element_text = driver.find_element_by_xpath('//*[@class="page-header"]').get_attribute(
             'innerText')
         self.assertEqual(expected_text, my_account_header_element_text, f"Header in my account page is incorrect.")
@@ -68,7 +71,6 @@ class LoginPageTest(unittest.TestCase):
         driver.get(self.item_url)
 
         item_name = driver.find_element_by_xpath('//h1[@itemprop="name"]').get_attribute('innerText')
-
         time.sleep(1)
         driver.save_screenshot('smoke_test_open_login_page.png')
 
@@ -89,25 +91,12 @@ class LoginPageTest(unittest.TestCase):
         """Checking log in to existing account."""
         expected_text = "Authentication failed."
         driver = self.driver
-        driver.get(self.login_page_url)
-
         incorrect_user_email = 'incorrect_mail@test.com'
         incorrect_user_pass = 'incorrect_password'
 
-        # finding login input box and sending value
-        email_input = driver.find_element_by_xpath('//*[@class="form-control"]')
-        email_input.send_keys(incorrect_user_email)
-
-        # finding password input box and sending value
-        password_input = driver.find_element_by_xpath('//*[@class="form-control js-child-focus js-visible-password"]')
-        password_input.send_keys(incorrect_user_pass)
-
-
-        # finding button 'sign in'
-        submit_login_button = driver.find_element_by_xpath('//*[@class="btn btn-primary"]')
-        submit_login_button.click()
+        driver.get(self.login_page_url)
+        self.user_login(driver, incorrect_user_email, incorrect_user_pass )
         time.sleep(1.5)
-
         my_account_login_error_text = driver.find_element_by_xpath('//*[@class = "alert alert-danger"]').get_attribute(
             'innerText')
         self.assertEqual(expected_text, my_account_login_error_text, f"Header in my account page is incorrect.")
