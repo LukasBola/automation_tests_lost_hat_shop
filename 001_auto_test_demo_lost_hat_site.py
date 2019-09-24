@@ -1,7 +1,9 @@
+
 from selenium import webdriver
 import unittest
 import time
 from settings import TestSettings
+
 
 class LoginPageTest(unittest.TestCase):
     """Tests for web site https://autodemo.testoneo.com/en/ ."""
@@ -9,6 +11,7 @@ class LoginPageTest(unittest.TestCase):
     @classmethod
     def setUp(self) -> None:
         """Method opens web browser before every single test in present class."""
+
         driver_settings = TestSettings()
         self.driver = webdriver.Chrome(driver_settings.executable_path)
         self.base_url = 'https://autodemo.testoneo.com/en'
@@ -19,6 +22,7 @@ class LoginPageTest(unittest.TestCase):
     def tearDown(self) -> None:
         """Method closes web browser after every single test in present class."""
         self.driver.quit()
+
 
     def test_login_form_header_name(self):
         """Checking if header name on teh login page is correct."""
@@ -64,8 +68,10 @@ class LoginPageTest(unittest.TestCase):
         driver.get(self.item_url)
 
         item_name = driver.find_element_by_xpath('//h1[@itemprop="name"]').get_attribute('innerText')
+
         time.sleep(1)
         driver.save_screenshot('smoke_test_open_login_page.png')
+
         self.assertEqual(expected_text, item_name, "Name of item is incorrect.")
         print(f"{100 * '='}\nName of item is: '{item_name}'.")
 
@@ -84,6 +90,7 @@ class LoginPageTest(unittest.TestCase):
         expected_text = "Authentication failed."
         driver = self.driver
         driver.get(self.login_page_url)
+
         incorrect_user_email = 'incorrect_mail@test.com'
         incorrect_user_pass = 'incorrect_password'
 
@@ -95,6 +102,7 @@ class LoginPageTest(unittest.TestCase):
         password_input = driver.find_element_by_xpath('//*[@class="form-control js-child-focus js-visible-password"]')
         password_input.send_keys(incorrect_user_pass)
 
+
         # finding button 'sign in'
         submit_login_button = driver.find_element_by_xpath('//*[@class="btn btn-primary"]')
         submit_login_button.click()
@@ -104,3 +112,4 @@ class LoginPageTest(unittest.TestCase):
             'innerText')
         self.assertEqual(expected_text, my_account_login_error_text, f"Header in my account page is incorrect.")
         print(f"""{100 * '='}\nLogin error text for https://autodemo.testoneo.com/en/my-account is: '{my_account_login_error_text}'.""")
+
