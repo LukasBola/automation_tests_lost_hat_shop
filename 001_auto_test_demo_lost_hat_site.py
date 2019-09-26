@@ -70,7 +70,7 @@ class LoginPageTest(unittest.TestCase):
         item_name_xpath = '//h1[@itemprop="name"]'
 
         time.sleep(1)
-        driver.save_screenshot('smoke_test_open_login_page.png')
+        driver.save_screenshot('screens\smoke_test_open_login_page.png')
         self.assert_element_text(driver, item_name_xpath, expected_text)
 
     def test_item_price(self):
