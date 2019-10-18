@@ -2,10 +2,11 @@
 from selenium import webdriver
 import unittest
 import time
+
 from settings import TestSettings
+from helpers import functional_helpers as fh
 
-
-class LoginPageTest(unittest.TestCase):
+class LostHatTest(unittest.TestCase):
     """Tests for web site https://autodemo.testoneo.com/en/ ."""
 
     @classmethod
@@ -23,21 +24,13 @@ class LoginPageTest(unittest.TestCase):
         """Method closes web browser after every single test in present class."""
         self.driver.quit()
 
-    def user_login(self, driver, user_email, user_password):
-        """Login to the account."""
-        # finding login input box and sending value
-        email_input = driver.find_element_by_xpath('//*[@class="form-control"]')
-        email_input.send_keys(user_email)
-        # finding password input box and sending value
-        password_input = driver.find_element_by_xpath('//*[@class="form-control js-child-focus js-visible-password"]')
-        password_input.send_keys(user_password)
-        # finding button 'sign in'
-        submit_login_button = driver.find_element_by_xpath('//*[@class="btn btn-primary"]')
-        submit_login_button.click()
-        time.sleep(1.5)
-
     def assert_element_text(self, driver, xpath, expected_text):
-        """Checking assert baseed on outherText attribute value of given element."""
+        """Checking assert based on outherText attribute value of given element.
+        :param driver: webdriver instance
+        :param xpath: xpath to element with text to be observed
+        :param expected_text: text what we expecting to be found
+        :return: None
+        """
         element_text = driver.find_element_by_xpath(xpath).get_attribute('outerText')
         self.assertEqual(expected_text, element_text, f"Expected text differ from actual on page: {driver.current_url}")
 
@@ -59,7 +52,7 @@ class LoginPageTest(unittest.TestCase):
         my_account_header_element_xpath = '//*[@class="page-header"]'
 
         driver.get(self.login_page_url)
-        self.user_login(driver, user_email, user_password)
+        fh.user_login(driver, user_email, user_password)
         self.assert_element_text(driver, my_account_header_element_xpath, expected_text)
 
     def test_item_name(self):
@@ -70,7 +63,7 @@ class LoginPageTest(unittest.TestCase):
         item_name_xpath = '//h1[@itemprop="name"]'
 
         time.sleep(1)
-        driver.save_screenshot('smoke_test_open_login_page.png')
+        driver.save_screenshot('screens\smoke_test_open_login_page.png')
         self.assert_element_text(driver, item_name_xpath, expected_text)
 
     def test_item_price(self):
@@ -91,6 +84,6 @@ class LoginPageTest(unittest.TestCase):
         my_account_login_error_xpath = '//*[@class = "alert alert-danger"]'
 
         driver.get(self.login_page_url)
-        self.user_login(driver, incorrect_user_email, incorrect_user_pass )
+        fh.user_login(driver, incorrect_user_email, incorrect_user_pass )
         time.sleep(1.5)
         self.assert_element_text(driver, my_account_login_error_xpath, expected_error_text)
