@@ -1,4 +1,4 @@
 settings.py
-archive/
-screens/
-.idea/
+archive/*
+screens/*
+.idea/*
