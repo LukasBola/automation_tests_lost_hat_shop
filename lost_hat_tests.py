@@ -88,3 +88,28 @@ class LostHatTest(unittest.TestCase):
         time.sleep(1.5)
         self.assert_element_text(driver, my_account_login_error_xpath, expected_error_text)
 
+class LostHatFrontPageTests(unittest.TestCase):
+    """Tests of front page in front page of Lost Hat shop."""
+
+    @classmethod
+    def setUp(self) -> None:
+        """Method opens web browser before every single test in present class."""
+
+        driver_settings = TestSettings()
+        self.driver = webdriver.Chrome(driver_settings.executable_path)
+        self.base_url = 'https://autodemo.testoneo.com/en'
+        self.login_page_url = self.base_url + '/login?back=my-account'
+        self.item_url = self.base_url + '/men/1-1-hummingbird-printed-t-shirt.html'
+
+    @classmethod
+    def tearDown(self) -> None:
+        """Method closes web browser after every single test in present class."""
+        self.driver.quit()
+
+    def test_slider_presention(self):
+        """Test if slider is present on the main Lost Hat site."""
+        driver = self.driver
+        slider_xpath = '//*[@id="carousel"]'
+
+        driver.get(self.base_url)
+        driver.find_element_by_xpath(slider_xpath)
