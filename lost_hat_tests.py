@@ -88,6 +88,3 @@ class LostHatTest(unittest.TestCase):
         time.sleep(1.5)
         self.assert_element_text(driver, my_account_login_error_xpath, expected_error_text)
 
-class NextTestClass(unittest.TestCase):
-    """Test description"""
-    pass
