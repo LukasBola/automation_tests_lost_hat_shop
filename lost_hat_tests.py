@@ -106,10 +106,17 @@ class LostHatFrontPageTests(unittest.TestCase):
         """Method closes web browser after every single test in present class."""
         self.driver.quit()
 
-    def test_slider_presention(self):
-        """Test if slider is present on the main Lost Hat site."""
+    def test_slider_minimum_size(self):
+        """Test if slider has minimum size ."""
         driver = self.driver
         slider_xpath = '//*[@id="carousel"]'
+        expected_min_height = 3000
+        expected_min_width = 6000
 
         driver.get(self.base_url)
-        driver.find_element_by_xpath(slider_xpath)
+        slider_element = driver.find_element_by_xpath(slider_xpath)
+        actual_slider_height = slider_element.size['height']
+        actual_slider_width = slider_element.size['width']
+        print(actual_slider_height, actual_slider_width)
+        self.assertLess(expected_min_height, actual_slider_height, f'Element height found by xpath {slider_xpath} on page {driver.current_url} is smaller than expected {expected_min_height}px')
+        self.assertLess(expected_min_width, actual_slider_width, f'Element width found by xpath {slider_xpath} on page {driver.current_url} is smaller than expected {expected_min_width}px')
