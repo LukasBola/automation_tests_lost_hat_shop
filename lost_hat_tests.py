@@ -107,11 +107,11 @@ class LostHatFrontPageTests(unittest.TestCase):
         self.driver.quit()
 
     def test_slider_minimum_size(self):
-        """Test if slider has minimum size ."""
+        """Testing if slider has minimum size ."""
         driver = self.driver
         slider_xpath = '//*[@id="carousel"]'
-        expected_min_height = 3000
-        expected_min_width = 6000
+        expected_min_height = 300
+        expected_min_width = 600
 
         driver.get(self.base_url)
         slider_element = driver.find_element_by_xpath(slider_xpath)
@@ -120,3 +120,32 @@ class LostHatFrontPageTests(unittest.TestCase):
         print(actual_slider_height, actual_slider_width)
         self.assertLess(expected_min_height, actual_slider_height, f'Element height found by xpath {slider_xpath} on page {driver.current_url} is smaller than expected {expected_min_height}px')
         self.assertLess(expected_min_width, actual_slider_width, f'Element width found by xpath {slider_xpath} on page {driver.current_url} is smaller than expected {expected_min_width}px')
+
+    def test_slider_contain_exact_number_of_slides(self):
+        """Metchod to check length of slider's list."""
+        driver = self.driver
+        expected_number_of_slides = 3
+        slider_list_xpath = '//*[@id="carousel"]/ul/li'
+
+        driver.get(self.base_url)
+        sliders = driver.find_elements_by_xpath(slider_list_xpath)
+        actual_number_of_slides = len(sliders)
+        print(f"Number od slides equals: {actual_number_of_slides}")
+        self.assertEqual(expected_number_of_slides, actual_number_of_slides, f"Number of slides found by xpath {slider_list_xpath} "
+                                                                          f"on page {driver.current_url} is different than expected "
+                                                                          f"{expected_number_of_slides} slides.")
+
+    def test_the_slides_title(self):
+        """Checking if slider's element have the proper titles."""
+        driver = self.driver
+        expected_part_of_slide_title = 'sample'
+        sliders_title_xpath = '//*[@id="carousel"]/ul/li//*[contains(@class, "text-uppercase")]'
+
+        driver.get(self.base_url)
+        sliders_title_elements = driver.find_elements_by_xpath(sliders_title_xpath)
+
+        for slider_title_element in sliders_title_elements:
+            title_text = slider_title_element.get_attribute('textContent')
+            print(f"The title of slider on page {self.base_url}: {title_text}")
+            self.assertIn(expected_part_of_slide_title, title_text.lower(), f"The slide title {expected_part_of_slide_title} does not "
+                                                                       f"found in slider on {self.base_url} page.")
