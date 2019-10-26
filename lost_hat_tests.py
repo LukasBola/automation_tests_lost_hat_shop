@@ -110,16 +110,19 @@ class LostHatFrontPageTests(unittest.TestCase):
         """Testing if slider has minimum size ."""
         driver = self.driver
         slider_xpath = '//*[@id="carousel"]'
-        expected_min_height = 300
-        expected_min_width = 600
+        expected_min_height = 3000
+        expected_min_width = 6000
 
         driver.get(self.base_url)
         slider_element = driver.find_element_by_xpath(slider_xpath)
         actual_slider_height = slider_element.size['height']
         actual_slider_width = slider_element.size['width']
         print(actual_slider_height, actual_slider_width)
-        self.assertLess(expected_min_height, actual_slider_height, f'Element height found by xpath {slider_xpath} on page {driver.current_url} is smaller than expected {expected_min_height}px')
-        self.assertLess(expected_min_width, actual_slider_width, f'Element width found by xpath {slider_xpath} on page {driver.current_url} is smaller than expected {expected_min_width}px')
+
+        with self.subTest(actual_slider_height):
+            self.assertLess(expected_min_height, actual_slider_height, f'Element height found by xpath {slider_xpath} on page {driver.current_url} is smaller than expected {expected_min_height}px')
+        with self.subTest(actual_slider_width):
+            self.assertLess(expected_min_width, actual_slider_width, f'Element width found by xpath {slider_xpath} on page {driver.current_url} is smaller than expected {expected_min_width}px')
 
     def test_slider_contain_exact_number_of_slides(self):
         """Metchod to check length of slider's list."""
@@ -146,9 +149,10 @@ class LostHatFrontPageTests(unittest.TestCase):
 
         for slider_title_element in sliders_title_elements:
             title_text = slider_title_element.get_attribute('textContent')
-            print(f"The title of slider on page {self.base_url}: {title_text}")
-            self.assertIn(expected_part_of_slide_title, title_text.lower(), f"The slide title {expected_part_of_slide_title} does not "
-                                                                            f"found in slider on {self.base_url} page.")
+            with self.subTest(title_text):
+                print(f"The title of slider on page {self.base_url}: {title_text}")
+                self.assertIn(expected_part_of_slide_title, title_text.lower(), f"The slide title {expected_part_of_slide_title} does not "
+                                                                                f"found in slider on {self.base_url} page.")
 
     def test_products_number_on_main_page(self):
         """Checking if number of products on main page are complain with requirements."""
@@ -161,3 +165,4 @@ class LostHatFrontPageTests(unittest.TestCase):
         actual_products_number = len(products_list)
         print(f"Products number equals: {actual_products_number}.")
         self.assertEqual(expected_number_of_products, actual_products_number, f"Products number differ from expected number.")
+
