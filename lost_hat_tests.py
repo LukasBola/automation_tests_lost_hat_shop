@@ -1,10 +1,10 @@
-
 from selenium import webdriver
 import unittest
 import time
 
 from settings import TestSettings
 from helpers import functional_helpers as fh
+
 
 class LostHatTest(unittest.TestCase):
     """Tests for web site https://autodemo.testoneo.com/en/ ."""
@@ -84,9 +84,10 @@ class LostHatTest(unittest.TestCase):
         my_account_login_error_xpath = '//*[@class = "alert alert-danger"]'
 
         driver.get(self.login_page_url)
-        fh.user_login(driver, incorrect_user_email, incorrect_user_pass )
+        fh.user_login(driver, incorrect_user_email, incorrect_user_pass)
         time.sleep(1.5)
         self.assert_element_text(driver, my_account_login_error_xpath, expected_error_text)
+
 
 class LostHatFrontPageTests(unittest.TestCase):
     """Tests of front page in front page of Lost Hat shop."""
@@ -120,9 +121,13 @@ class LostHatFrontPageTests(unittest.TestCase):
         print(actual_slider_height, actual_slider_width)
 
         with self.subTest(actual_slider_height):
-            self.assertLess(expected_min_height, actual_slider_height, f'Element height found by xpath {slider_xpath} on page {driver.current_url} is smaller than expected {expected_min_height}px')
+            self.assertLess(expected_min_height, actual_slider_height,
+                            f'Element height found by xpath {slider_xpath} on page {driver.current_url} '
+                            f'is smaller than expected {expected_min_height}px')
         with self.subTest(actual_slider_width):
-            self.assertLess(expected_min_width, actual_slider_width, f'Element width found by xpath {slider_xpath} on page {driver.current_url} is smaller than expected {expected_min_width}px')
+            self.assertLess(expected_min_width, actual_slider_width,
+                            f'Element width found by xpath {slider_xpath} on page {driver.current_url} '
+                            f'is smaller than expected {expected_min_width}px')
 
     def test_slider_contain_exact_number_of_slides(self):
         """Metchod to check length of slider's list."""
@@ -134,9 +139,10 @@ class LostHatFrontPageTests(unittest.TestCase):
         sliders = driver.find_elements_by_xpath(slider_list_xpath)
         actual_number_of_slides = len(sliders)
         print(f"Number od slides equals: {actual_number_of_slides}")
-        self.assertEqual(expected_number_of_slides, actual_number_of_slides, f"Number of slides found by xpath {slider_list_xpath} "
-                                                                             f"on page {driver.current_url} is different than expected "
-                                                                             f"{expected_number_of_slides} slides.")
+        self.assertEqual(expected_number_of_slides, actual_number_of_slides,
+                         f"Number of slides found by xpath {slider_list_xpath} "
+                         f"on page {driver.current_url} is different than expected "
+                         f"{expected_number_of_slides} slides.")
 
     def test_the_slides_title(self):
         """Checking if slider's element have the proper titles."""
@@ -151,8 +157,9 @@ class LostHatFrontPageTests(unittest.TestCase):
             title_text = slider_title_element.get_attribute('textContent')
             with self.subTest(title_text):
                 print(f"The title of slider on page {self.base_url}: {title_text}")
-                self.assertIn(expected_part_of_slide_title, title_text.lower(), f"The slide title {expected_part_of_slide_title} does not "
-                                                                                f"found in slider on {self.base_url} page.")
+                self.assertIn(expected_part_of_slide_title, title_text.lower(),
+                              f"The slide title {expected_part_of_slide_title} does not "
+                              f"found in slider on {self.base_url} page.")
 
     def test_products_number_on_main_page(self):
         """Checking if number of products on main page are complain with requirements."""
@@ -164,5 +171,5 @@ class LostHatFrontPageTests(unittest.TestCase):
         products_list = driver.find_elements_by_xpath(products_list_xpath)
         actual_products_number = len(products_list)
         print(f"Products number equals: {actual_products_number}.")
-        self.assertEqual(expected_number_of_products, actual_products_number, f"Products number differ from expected number.")
-
+        self.assertEqual(expected_number_of_products, actual_products_number,
+                         f"Products number differ from expected number.")
