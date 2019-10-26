@@ -132,8 +132,8 @@ class LostHatFrontPageTests(unittest.TestCase):
         actual_number_of_slides = len(sliders)
         print(f"Number od slides equals: {actual_number_of_slides}")
         self.assertEqual(expected_number_of_slides, actual_number_of_slides, f"Number of slides found by xpath {slider_list_xpath} "
-                                                                          f"on page {driver.current_url} is different than expected "
-                                                                          f"{expected_number_of_slides} slides.")
+                                                                             f"on page {driver.current_url} is different than expected "
+                                                                             f"{expected_number_of_slides} slides.")
 
     def test_the_slides_title(self):
         """Checking if slider's element have the proper titles."""
@@ -148,4 +148,16 @@ class LostHatFrontPageTests(unittest.TestCase):
             title_text = slider_title_element.get_attribute('textContent')
             print(f"The title of slider on page {self.base_url}: {title_text}")
             self.assertIn(expected_part_of_slide_title, title_text.lower(), f"The slide title {expected_part_of_slide_title} does not "
-                                                                       f"found in slider on {self.base_url} page.")
+                                                                            f"found in slider on {self.base_url} page.")
+
+    def test_products_number_on_main_page(self):
+        """Checking if number of products on main page are complain with requirements."""
+        driver = self.driver
+        expected_number_of_products = 8
+        products_list_xpath = '//*[@class="product-miniature js-product-miniature"]'
+
+        driver.get(self.base_url)
+        products_list = driver.find_elements_by_xpath(products_list_xpath)
+        actual_products_number = len(products_list)
+        print(f"Products number equals: {actual_products_number}.")
+        self.assertEqual(expected_number_of_products, actual_products_number, f"Products number differ from expected number.")
