@@ -35,7 +35,7 @@ class LostHatSmokeTests(unittest.TestCase):
         self.assertEqual(expected_title, actual_title, f"Title on page {driver.current_url} is incorrect.")
 
     def test_main_page_title(self):
-        expected_title = 'Lost Hatt'
+        expected_title = 'Lost Hat'
         main_page_url = self.base_url
         self.assert_page_title(expected_title, main_page_url)
 
@@ -43,3 +43,14 @@ class LostHatSmokeTests(unittest.TestCase):
         expected_title = 'Login'
         self.assert_page_title(expected_title, self.login_page_url)
 
+    def test_art_page_title(self):
+        expected_title = 'Art'
+        self.assert_page_title(expected_title, self.art_page_url)
+
+    def test_clothes_page_title(self):
+        expected_title = 'Clothes'
+        self.assert_page_title(expected_title, self.clothes_page_url)
+
+    def test_accessories_page_title(self):
+        expected_title = 'Accessories'
+        self.assert_page_title(expected_title, self.accessories_page_url)
