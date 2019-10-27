@@ -25,11 +25,16 @@ class LostHatSmokeTests(unittest.TestCase):
         self.driver.quit()
 
     def driver_get_page_title(self, page_url):
-        driver = self.driver
-        driver.get(page_url)
-        return driver.title
+        """
+        Method return title of selected page, based on url.
+        :param page_url: url address of specified page
+        :return: title of page
+        """
+        self.driver.get(page_url)
+        return self.driver.title
 
     def assert_page_title(self, expected_title, page_url):
+        """Method assert tilte of seleted page, based on expected title and specified url"""
         driver = self.driver
         actual_title = self.driver_get_page_title(page_url)
         self.assertEqual(expected_title, actual_title, f"Title on page {driver.current_url} is incorrect.")
