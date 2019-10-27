@@ -82,7 +82,7 @@ class LostHatFrontPageTests(unittest.TestCase):
                               f"found in slider on {self.base_url} page.")
 
     def test_products_number_on_main_page(self):
-        """Checking if number of products on main page are complain with requirements."""
+        """Checking if number of products on main page are compliant with requirements."""
         driver = self.driver
         expected_number_of_products = 8
         products_list_xpath = '//*[@class="product-miniature js-product-miniature"]'

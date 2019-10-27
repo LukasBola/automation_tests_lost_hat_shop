@@ -44,7 +44,7 @@ class LostHatLoginPageTests(unittest.TestCase):
         self.assert_element_text(driver, login_form_header_element_xpath, expected_text)
 
     def test_login_to_existing_account(self):
-        """Checking log in to existing account."""
+        """Checking log in to existing account with correct login and password."""
         expected_text = "Your account"
         driver = self.driver
         user_email = 'test_777@test.com'
