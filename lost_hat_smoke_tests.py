@@ -24,7 +24,16 @@ class LostHatSmokeTests(unittest.TestCase):
         """Method closes web browser after every single test in present class."""
         self.driver.quit()
 
-    def test_main_page_title(self):
-        """Checking the title of main page."""
-        pass
+    def driver_get_page_title(self, page_url):
+        driver = self.driver
+        driver.get(page_url)
+        return driver.title
 
+    def assert_text(self, expected_text, actual_text):
+        driver = self.driver
+        self.assertEqual(expected_text, actual_text, f"Text on page {driver.current_url} is incorrect.")
+
+    def test_main_page_title(self):
+        expected_title = 'Lost Hat'
+        actual_title = self.driver_get_page_title(self.base_url)
+        self.assert_text(expected_title, actual_title)
