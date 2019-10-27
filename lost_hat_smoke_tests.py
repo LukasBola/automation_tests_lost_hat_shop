@@ -29,11 +29,17 @@ class LostHatSmokeTests(unittest.TestCase):
         driver.get(page_url)
         return driver.title
 
-    def assert_text(self, expected_text, actual_text):
+    def assert_page_title(self, expected_title, page_url):
         driver = self.driver
-        self.assertEqual(expected_text, actual_text, f"Text on page {driver.current_url} is incorrect.")
+        actual_title = self.driver_get_page_title(page_url)
+        self.assertEqual(expected_title, actual_title, f"Title on page {driver.current_url} is incorrect.")
 
     def test_main_page_title(self):
-        expected_title = 'Lost Hat'
-        actual_title = self.driver_get_page_title(self.base_url)
-        self.assert_text(expected_title, actual_title)
+        expected_title = 'Lost Hatt'
+        main_page_url = self.base_url
+        self.assert_page_title(expected_title, main_page_url)
+
+    def test_login_page_title(self):
+        expected_title = 'Login'
+        self.assert_page_title(expected_title, self.login_page_url)
+
