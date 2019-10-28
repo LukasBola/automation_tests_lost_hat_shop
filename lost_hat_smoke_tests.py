@@ -1,8 +1,8 @@
 from selenium import webdriver
 import unittest
 
-import time
 from settings import TestSettings
+
 
 class LostHatSmokeTests(unittest.TestCase):
     """Smoke tests of Lost Hat page."""

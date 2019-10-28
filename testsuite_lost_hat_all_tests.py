@@ -14,5 +14,7 @@ def lost_hat_full_suite():
     test_suite.addTest(unittest.makeSuite(LostHatLoginPageTests))
     return test_suite
 
-runner = unittest.TextTestRunner(verbosity=2)
-runner.run(lost_hat_full_suite())
+
+if __name__ == '__main__':
+    runner = unittest.TextTestRunner(verbosity=2)
+    runner.run(lost_hat_full_suite())
