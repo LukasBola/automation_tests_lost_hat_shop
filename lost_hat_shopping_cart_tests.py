@@ -47,7 +47,15 @@ class LostHatShoppingCartTests(unittest.TestCase):
         shopping_cart_button_element = driver.find_element_by_xpath(add_to_shopping_cart_button_xpath)
         shopping_cart_button_element.click()
 
-        time.sleep(3)
+        for seconds in range(5):
+            modal_window_header_elements = driver.find_elements_by_xpath(modal_window_header_element_xpath)
+            time.sleep(1)
+            print(f"Total wating {seconds}s'")
+            flag = len(modal_window_header_elements)
+            print(f"found {flag}")
+            if flag != 0:
+                break
+
         modal_window_header_element = driver.find_element_by_xpath(modal_window_header_element_xpath)
         actual_modal_window_element_text = modal_window_header_element.get_attribute('innerText')
         self.assertEqual(expected_modal_window_header_element_text, actual_modal_window_element_text,
