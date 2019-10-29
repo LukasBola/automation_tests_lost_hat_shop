@@ -1,0 +1,3 @@
+The title of slider on page https://autodemo.testoneo.com/en: Sample 1
+The title of slider on page https://autodemo.testoneo.com/en: Sample 2
+The title of slider on page https://autodemo.testoneo.com/en: Sample 3
