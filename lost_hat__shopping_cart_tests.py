@@ -33,7 +33,7 @@ class LostHatShoppingCartTests(unittest.TestCase):
         self.assertEqual(expected_text, element_text, f"Expected text differ from actual on page: {driver.current_url}")
 
 
-    def test_adding_product_to_cart(self):
+    def test_adding_product_to_shopping_cart(self):
         driver = self.driver
         driver.get(self.art_page_url)
 
