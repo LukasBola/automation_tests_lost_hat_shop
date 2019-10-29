@@ -51,9 +51,9 @@ class LostHatShoppingCartTests(unittest.TestCase):
             modal_window_header_elements = driver.find_elements_by_xpath(modal_window_header_element_xpath)
             time.sleep(1)
             print(f"Total wating {seconds}s'")
-            flag = len(modal_window_header_elements)
-            print(f"found {flag}")
-            if flag != 0:
+            number_of_found_elements = len(modal_window_header_elements)
+            print(f"found {number_of_found_elements}")
+            if number_of_found_elements:
                 break
 
         modal_window_header_element = driver.find_element_by_xpath(modal_window_header_element_xpath)
