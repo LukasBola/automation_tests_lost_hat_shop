@@ -41,10 +41,11 @@ class LostHatShoppingCartTests(unittest.TestCase):
         add_to_shopping_cart_button_xpath = '//button[@class="btn btn-primary add-to-cart"]'
         modal_window_header_element_xpath = '//*[@class="modal-title h6 text-sm-center"]'
         expected_modal_window_header_element_text = '\ue876Product successfully added to your shopping cart'
-        # click and select product
-        driver.find_element_by_xpath(product_xpath).click()
-        # click add to cart button
-        driver.find_element_by_xpath(add_to_shopping_cart_button_xpath).click()
+
+        product_element = driver.find_element_by_xpath(product_xpath)
+        product_element.click()
+        shopping_cart_button_element = driver.find_element_by_xpath(add_to_shopping_cart_button_xpath)
+        shopping_cart_button_element.click()
 
         time.sleep(3)
         modal_window_header_element = driver.find_element_by_xpath(modal_window_header_element_xpath)
