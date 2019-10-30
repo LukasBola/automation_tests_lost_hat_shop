@@ -47,11 +47,11 @@ class LostHatShoppingCartTests(unittest.TestCase):
         shopping_cart_button_element = driver.find_element_by_xpath(add_to_shopping_cart_button_xpath)
         shopping_cart_button_element.click()
 
-        for seconds in range(5):
-            modal_window_header_elements = driver.find_elements_by_xpath(modal_window_header_element_xpath)
-            time.sleep(1)
-            print(f"Total wating {seconds}s'")
-            number_of_found_elements = len(modal_window_header_elements)
+        for iteration in range(200):
+            modal_window_header_elements_list = driver.find_elements_by_xpath(modal_window_header_element_xpath)
+            time.sleep(0.1)
+            print(f"Total iteration {iteration}s'")
+            number_of_found_elements = len(modal_window_header_elements_list)
             print(f"found {number_of_found_elements}")
             if number_of_found_elements:
                 break
