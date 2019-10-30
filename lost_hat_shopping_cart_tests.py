@@ -1,10 +1,10 @@
 import time
 import unittest
-
-from helpers import functional_helpers as fh
 from selenium import webdriver
 from settings import TestSettings
 
+from helpers import functional_helpers as fh
+from helpers import operational_helpers as oh
 
 class LostHatShoppingCartTests(unittest.TestCase):
     """Tests for web site https://autodemo.testoneo.com/en/ ."""
@@ -40,23 +40,13 @@ class LostHatShoppingCartTests(unittest.TestCase):
         product_xpath = '//*[contains(text(),"Mountain fox - Vector graphics")]'
         add_to_shopping_cart_button_xpath = '//button[@class="btn btn-primary add-to-cart"]'
         modal_window_header_element_xpath = '//*[@class="modal-title h6 text-sm-center"]'
+
         expected_modal_window_header_element_text = '\ue876Product successfully added to your shopping cart'
 
-        product_element = driver.find_element_by_xpath(product_xpath)
-        product_element.click()
-        shopping_cart_button_element = driver.find_element_by_xpath(add_to_shopping_cart_button_xpath)
-        shopping_cart_button_element.click()
+        driver.find_element_by_xpath(product_xpath).click()
+        driver.find_element_by_xpath(add_to_shopping_cart_button_xpath).click()
+        oh.wait_for_elements_indefinitely(driver, modal_window_header_element_xpath)
 
-        for iteration in range(200):
-            modal_window_header_elements_list = driver.find_elements_by_xpath(modal_window_header_element_xpath)
-            time.sleep(0.1)
-            print(f"Total iteration {iteration}s'")
-            number_of_found_elements = len(modal_window_header_elements_list)
-            print(f"found {number_of_found_elements}")
-            if number_of_found_elements:
-                break
-
-        modal_window_header_element = driver.find_element_by_xpath(modal_window_header_element_xpath)
-        actual_modal_window_element_text = modal_window_header_element.get_attribute('innerText')
+        actual_modal_window_element_text = driver.find_element_by_xpath(modal_window_header_element_xpath).get_attribute('innerText')
         self.assertEqual(expected_modal_window_header_element_text, actual_modal_window_element_text,
                          f"Product was not add to cart")
