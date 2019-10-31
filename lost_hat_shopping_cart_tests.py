@@ -1,9 +1,7 @@
-import time
 import unittest
 from selenium import webdriver
 from settings import TestSettings
 
-from helpers import functional_helpers as fh
 from helpers import operational_helpers as oh
 
 class LostHatShoppingCartTests(unittest.TestCase):
