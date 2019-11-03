@@ -7,14 +7,14 @@ def wait_for_elements(driver, element_xpath, iterations=200):
     :param driver: webdriver instance
     :param element_xpath: xpath of web element we are waiting for
     :param iterations: number of iteration, one iteration lasts 0.1s
-    :return: None
+    :return: List of elements
     """
     for iteration in range(iterations):
-        element_list = driver.find_elements_by_xpath(element_xpath)
-        element_list_number = len(element_list)
+        elements_list = driver.find_elements_by_xpath(element_xpath)
+        elements_list_number = len(elements_list)
         time.sleep(0.1)
-        if element_list_number:
-            break
+        if elements_list_number:
+            return elements_list
 
 def wait_for_elements_indefinitely(driver, element_xpath):
     """
@@ -25,14 +25,14 @@ def wait_for_elements_indefinitely(driver, element_xpath):
     +++++++++++++++++++++++++++++++
     :param driver: webdriver instance
     :param element_xpath: xpath of web element we are waiting for
-    :return: None
+    :return: List of elements
     """
     while True:
-        element_list = driver.find_elements_by_xpath(element_xpath)
-        element_list_number = len(element_list)
+        elements_list = driver.find_elements_by_xpath(element_xpath)
+        elements_list_number = len(elements_list)
         time.sleep(0.1)
-        if element_list_number:
-            break
+        if elements_list_number:
+            return elements_list
 
 def element_click(driver, element_xpath):
     """
