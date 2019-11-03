@@ -1,6 +1,6 @@
 import time
 
-def wait_for_elements(driver, element_xpath, iterations=50, number_of_expected_elements=4 ):
+def wait_for_elements(driver, element_xpath, iterations=50, number_of_expected_elements=1):
     """
     Function used for waiting for website element using element xpath. You can
     specify number of iteration you want to use to find element.
@@ -12,9 +12,8 @@ def wait_for_elements(driver, element_xpath, iterations=50, number_of_expected_e
     """
     for iteration in range(iterations):
         elements_list = driver.find_elements_by_xpath(element_xpath)
-        elements_list_number = len(elements_list)
         time.sleep(0.1)
-        if elements_list_number:
+        if len(elements_list) >= number_of_expected_elements:
             return elements_list
         if iteration == (iterations -1):
             print("End of wait.")
@@ -52,9 +51,8 @@ def wait_for_elements_in_seconds(driver, element_xpath, max_seconds=5, number_of
     """
     for second in range(max_seconds):
         elements_list = driver.find_elements_by_xpath(element_xpath)
-        elements_list_number = len(elements_list)
         time.sleep(1)
-        if elements_list_number >= number_of_expected_elements:
+        if len(elements_list) >= number_of_expected_elements:
             return elements_list
         if second == (max_seconds - 1):
             print("End of wait")
