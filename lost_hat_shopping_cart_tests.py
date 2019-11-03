@@ -20,17 +20,6 @@ class LostHatShoppingCartTests(unittest.TestCase):
         """Method closes web browser after every single test in present class."""
         self.driver.quit()
 
-    def assert_element_text(self, driver, xpath, expected_text):
-        """Checking assert based on outherText attribute value of given element.
-        :param driver: webdriver instance
-        :param xpath: xpath to element with text to be observed
-        :param expected_text: text what we expecting to be found
-        :return: None
-        """
-        element_text = driver.find_element_by_xpath(xpath).get_attribute('outerText')
-        self.assertEqual(expected_text, element_text, f"Expected text differ from actual on page: {driver.current_url}")
-
-
     def test_adding_product_to_shopping_cart(self):
         driver = self.driver
         driver.get(self.art_page_url)
@@ -43,8 +32,8 @@ class LostHatShoppingCartTests(unittest.TestCase):
 
         driver.find_element_by_xpath(product_xpath).click()
         driver.find_element_by_xpath(add_to_shopping_cart_button_xpath).click()
-        oh.wait_for_elements_indefinitely(driver, modal_window_header_element_xpath)
 
-        actual_modal_window_element_text = driver.find_element_by_xpath(modal_window_header_element_xpath).get_attribute('innerText')
-        self.assertEqual(expected_modal_window_header_element_text, actual_modal_window_element_text,
-                         f"Product was not add to cart")
+        oh.wait_for_elements(driver, modal_window_header_element_xpath, 50, 1)
+
+        actual_modal_element_text = driver.find_element_by_xpath(modal_window_header_element_xpath).get_attribute('innerText')
+        self.assertEqual(expected_modal_window_header_element_text, actual_modal_element_text)
