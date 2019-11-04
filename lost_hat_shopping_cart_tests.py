@@ -24,7 +24,7 @@ class LostHatShoppingCartTests(unittest.TestCase):
         driver = self.driver
         driver.get(self.art_page_url)
 
-        product_xpath = '//*[contains(text(),"Mountain fox - Vector graphics")]'
+        product_xpath = '//*[contains(text(),"Hummingbird - Vector graphics")]'
         add_to_shopping_cart_button_xpath = '//button[@class="btn btn-primary add-to-cart"]'
         modal_window_header_element_xpath = '//*[@class="modal-title h6 text-sm-center"]'
 
@@ -33,7 +33,7 @@ class LostHatShoppingCartTests(unittest.TestCase):
         driver.find_element_by_xpath(product_xpath).click()
         driver.find_element_by_xpath(add_to_shopping_cart_button_xpath).click()
 
-        oh.wait_for_elements(driver, modal_window_header_element_xpath, 50, 1)
+        oh.wait_for_elements(driver, modal_window_header_element_xpath, 80, 1)
 
         actual_modal_element_text = driver.find_element_by_xpath(modal_window_header_element_xpath).get_attribute('innerText')
         self.assertEqual(expected_modal_window_header_element_text, actual_modal_element_text)
