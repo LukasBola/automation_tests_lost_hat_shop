@@ -27,11 +27,10 @@ class LostHatShoppingCartTests(unittest.TestCase):
         product_xpath = '//*[contains(text(),"Hummingbird - Vector graphics")]'
         add_to_shopping_cart_button_xpath = '//button[@class="btn btn-primary add-to-cart"]'
         modal_window_header_element_xpath = '//*[@class="modal-title h6 text-sm-center"]'
-
         expected_modal_window_header_element_text = '\ue876Product successfully added to your shopping cart'
 
         driver.find_element_by_xpath(product_xpath).click()
         driver.find_element_by_xpath(add_to_shopping_cart_button_xpath).click()
 
-        actual_modal_element = oh.wait_for_elements(driver, modal_window_header_element_xpath, 10, 1)[0]
-        self.assertEqual(expected_modal_window_header_element_text, actual_modal_element.text)
+        actual_modal_element_text = oh.wait_for_elements(driver, modal_window_header_element_xpath, 10, 1)[0].text
+        self.assertEqual(expected_modal_window_header_element_text, actual_modal_element_text)
