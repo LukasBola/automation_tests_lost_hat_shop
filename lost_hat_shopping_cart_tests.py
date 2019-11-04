@@ -33,7 +33,5 @@ class LostHatShoppingCartTests(unittest.TestCase):
         driver.find_element_by_xpath(product_xpath).click()
         driver.find_element_by_xpath(add_to_shopping_cart_button_xpath).click()
 
-        oh.wait_for_elements(driver, modal_window_header_element_xpath, 80, 1)
-
-        actual_modal_element_text = driver.find_element_by_xpath(modal_window_header_element_xpath).get_attribute('innerText')
-        self.assertEqual(expected_modal_window_header_element_text, actual_modal_element_text)
+        actual_modal_element = oh.wait_for_elements(driver, modal_window_header_element_xpath, 10, 1)[0]
+        self.assertEqual(expected_modal_window_header_element_text, actual_modal_element.text)
