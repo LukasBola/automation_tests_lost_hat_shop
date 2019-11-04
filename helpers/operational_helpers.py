@@ -19,7 +19,7 @@ def wait_for_elements_indefinitely(driver, element_xpath):
             return elements_list
 
 
-def wait_for_elements(driver, element_xpath, max_seconds=5, number_of_expected_elements=1):
+def wait_for_elements(driver, element_xpath, max_seconds=6, number_of_expected_elements=1):
     """Checking every second if list of elements under specified xpath was found
         :param driver: webdriver instance
         :param element_xpath: xpath of web element
