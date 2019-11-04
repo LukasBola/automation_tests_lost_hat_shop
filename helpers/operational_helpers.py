@@ -1,4 +1,8 @@
 import time
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 
 def wait_for_elements_indefinitely(driver, element_xpath):
     """
@@ -37,6 +41,22 @@ def wait_for_elements(driver, element_xpath, max_seconds=6, number_of_expected_e
             assert len(elements_list) >= number_of_expected_elements, \
                 f"Expected {number_of_expected_elements} elements but found {len(elements_list)} for xpath " \
                 f"{element_xpath} in time of {max_seconds}s."
+
+
+def visibility_of_element_wait(driver, confirmation_modal_title_xpath, timeout=10):
+    """
+    Checking if element specified by xpath is visible on page
+        :param driver: webdriver instance
+        :param confirmation_modal_title_xpath: xpath of web element
+        :timeout: time we wait for element (default 10s)
+        :return: first web element in list of found web elements
+    """
+    timeout_message = f"Element for '{confirmation_modal_title_xpath}' and url: {driver.current_url} not found. " \
+                      f"Time of wait equals {timeout}s."
+    locator = (By.XPATH, confirmation_modal_title_xpath)
+    element_located = EC.visibility_of_element_located(locator)
+    wait = WebDriverWait(driver, timeout)
+    return wait.until(element_located, timeout_message)
 
 
 def element_click(driver, element_xpath):
