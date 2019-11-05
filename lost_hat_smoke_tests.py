@@ -67,7 +67,7 @@ class LostHatSmokeTests(unittest.TestCase):
         searcher_input_xpath = '//*[@class="ui-autocomplete-input"]'
         search_product = 'mug'
         result_elements_list_xpath = '//*[@class="product-miniature js-product-miniature"]'
-        minimum_expected_elements = 6
+        minimum_expected_elements = 5
 
         driver.get(self.base_url)
         searcher_input_element = driver.find_element_by_xpath(searcher_input_xpath)
