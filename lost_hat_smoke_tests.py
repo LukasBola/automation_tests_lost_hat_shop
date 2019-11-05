@@ -1,5 +1,7 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
+import time
 
 from settings import TestSettings
 
@@ -59,3 +61,22 @@ class LostHatSmokeTests(unittest.TestCase):
     def test_accessories_page_title(self):
         expected_title = 'Accessories'
         self.assert_page_title(expected_title, self.accessories_page_url)
+
+    def test_products_searcher(self):
+        driver = self.driver
+        searcher_input_xpath = '//*[@class="ui-autocomplete-input"]'
+        search_product = 'mug'
+        result_elements_list_xpath = '//*[@class="product-miniature js-product-miniature"]'
+        minimum_expected_elements = 6
+
+        driver.get(self.base_url)
+        searcher_input_element = driver.find_element_by_xpath(searcher_input_xpath)
+        searcher_input_element.send_keys(search_product)
+        searcher_input_element.send_keys(Keys.ENTER)
+        elements_list = driver.find_elements_by_xpath(result_elements_list_xpath)
+        actual_number_elements = len(elements_list)
+        self.assertLessEqual(minimum_expected_elements, actual_number_elements, f"Expected number {minimum_expected_elements} "
+                                                                                f"is not less or equal than actual number of "
+                                                                                f"elements found {actual_number_elements}.")
+
+

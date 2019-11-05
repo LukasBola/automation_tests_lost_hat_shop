@@ -52,3 +52,5 @@ class LostHatProductPageTests(unittest.TestCase):
         item_price_xpath = '//*[@itemprop="price"]'
 
         self.assert_element_text(driver, item_price_xpath, expected_price)
+
+

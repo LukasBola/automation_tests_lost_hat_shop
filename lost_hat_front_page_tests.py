@@ -1,7 +1,9 @@
 from selenium import webdriver
 import unittest
+from selenium.webdriver.common.keys import Keys
 
 from settings import TestSettings
+
 
 class LostHatFrontPageTests(unittest.TestCase):
     """Tests of front page in front page of Lost Hat shop."""
@@ -93,3 +95,18 @@ class LostHatFrontPageTests(unittest.TestCase):
         print(f"Products number equals: {actual_products_number}.")
         self.assertEqual(expected_number_of_products, actual_products_number,
                          f"Products number differ from expected number.")
+
+    def test_front_page_products_have_price_in_pln(self):
+        driver = self.driver
+        elements_price_xpath = '//*[@class="price"]'
+        expected_currency = 'PLN'
+
+        driver.get(self.base_url)
+        elements_price_list = driver.find_elements_by_xpath(elements_price_xpath)
+
+        for element in elements_price_list:
+            actual_price_text = element.text
+            with self.subTest(actual_price_text):
+                print(f"The price of element on page {self.base_url}: {actual_price_text}")
+                self.assertIn(expected_currency, actual_price_text, f"Actual currency '{actual_price_text}'"
+                                                                       f"is different than expected '{expected_currency}'.")
