@@ -1,4 +1,5 @@
 settings.py
+allure_comands.txt
 archive/*
 screens/*
 .idea/*
