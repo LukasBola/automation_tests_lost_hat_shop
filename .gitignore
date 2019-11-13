@@ -2,4 +2,5 @@ settings.py
 allure_commands.txt
 archive/*
 screens/*
+venv/*
 .idea/*
