@@ -11,7 +11,7 @@ class LostHatSmokeTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(self) ->  None:
-        """Method opens web browser before every single test in present class."""
+        """Method opens web browser once, before all tests in present class."""
         driver_settings = TestSettings()
         self.driver = webdriver.Chrome(driver_settings.executable_path)
 
@@ -23,7 +23,7 @@ class LostHatSmokeTests(unittest.TestCase):
 
     @classmethod
     def tearDownClass(self) -> None:
-        """Method closes web browser after every single test in present class."""
+        """Method closes web browser once, after all tests in present class."""
         self.driver.quit()
 
     def driver_get_page_title(self, page_url):
