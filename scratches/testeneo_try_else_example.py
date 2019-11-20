@@ -13,8 +13,8 @@ xpath_list = ['*yolo_this_is_not_xpath*',
 def test_list_of_xpath(xpath_list):
     driver = webdriver.Chrome(TestSettings().executable_path)
     driver.get('https://antoogle.testoneo.com/')
-    for lp, xpath in enumerate(xpath_list):
-        print(f"\nTest {lp+1})"+"\n", "="*40)
+    for id, xpath in enumerate(xpath_list):
+        print(f"\nTest {id+1})"+"\n", "="*40)
         try:
             elem = driver.find_element_by_xpath(xpath)
         except selenium.common.exceptions.InvalidSelectorException as error:
