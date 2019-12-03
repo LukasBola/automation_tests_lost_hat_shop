@@ -9,7 +9,6 @@ from settings import TestSettings
 class LostHatLoginPageTests(unittest.TestCase):
     """Tests for web site https://autodemo.testoneo.com/en/ ."""
 
-    @classmethod
     def setUp(self) -> None:
         """Method opens web browser before every single test in present class."""
 
@@ -19,7 +18,6 @@ class LostHatLoginPageTests(unittest.TestCase):
         self.login_page_url = self.base_url + '/login?back=my-account'
         self.item_url = self.base_url + '/men/1-1-hummingbird-printed-t-shirt.html'
 
-    @classmethod
     def tearDown(self) -> None:
         """Method closes web browser after every single test in present class."""
         self.driver.quit()

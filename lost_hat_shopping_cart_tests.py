@@ -8,7 +8,6 @@ from helpers import operational_helpers as oh
 class LostHatShoppingCartTests(unittest.TestCase):
     """Tests for web site https://autodemo.testoneo.com/en/ ."""
 
-    @classmethod
     def setUp(self) -> None:
         """Method opens web browser before every single test in present class."""
         driver_settings = TestSettings()
@@ -17,7 +16,6 @@ class LostHatShoppingCartTests(unittest.TestCase):
         self.base_url = 'https://autodemo.testoneo.com/en'
         self.art_page_url = self.base_url + '/9-art'
 
-    @classmethod
     def tearDown(self) -> None:
         """Method closes web browser after every single test in present class."""
         self.driver.quit()
