@@ -11,6 +11,9 @@ class BaseTestsClass(unittest.TestCase):
         self.base_url = 'https://autodemo.testoneo.com/en'
         self.login_page_url = self.base_url + '/login?back=my-account'
         self.item_url = self.base_url + '/men/1-1-hummingbird-printed-t-shirt.html'
+        self.art_page_url = self.base_url + '/9-art'
+        self.clothes_page_url = self.base_url + '/3-clothes'
+        self.accessories_page_url = self.base_url + '/6-accessories'
 
     def tearDown(self) -> None:
         """Method closes web browser after every single test in present class."""

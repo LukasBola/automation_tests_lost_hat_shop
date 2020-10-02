@@ -1,6 +1,6 @@
 import time
 
-import BaseTestsClass
+from tests.base_page import BaseTestsClass
 
 
 class LostHatProductPageTests(BaseTestsClass):
