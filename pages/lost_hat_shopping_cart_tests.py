@@ -1,24 +1,10 @@
-import unittest
-from selenium import webdriver
-from settings import TestSettings
+from pages.base_page import BaseTestsClass
 
 from helpers import operational_helpers as oh
 
 
-class LostHatShoppingCartTests(unittest.TestCase):
+class LostHatShoppingCartTests(BaseTestsClass):
     """Tests for web site https://autodemo.testoneo.com/en/ ."""
-
-    def setUp(self) -> None:
-        """Method opens web browser before every single test in present class."""
-        driver_settings = TestSettings()
-        self.driver = webdriver.Chrome(driver_settings.executable_path)
-        self.driver.implicitly_wait(10)
-        self.base_url = 'https://autodemo.testoneo.com/en'
-        self.art_page_url = self.base_url + '/9-art'
-
-    def tearDown(self) -> None:
-        """Method closes web browser after every single test in present class."""
-        self.driver.quit()
 
     def test_adding_product_to_shopping_cart(self):
         driver = self.driver

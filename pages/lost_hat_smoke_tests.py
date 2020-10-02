@@ -1,30 +1,10 @@
-from selenium import webdriver
+from pages.base_page import BaseTestsClass
+
 from selenium.webdriver.common.keys import Keys
-import unittest
-import time
-
-from settings import TestSettings
 
 
-class LostHatSmokeTests(unittest.TestCase):
+class LostHatSmokeTests(BaseTestsClass):
     """Smoke tests of Lost Hat page."""
-
-    @classmethod
-    def setUpClass(self) ->  None:
-        """Method opens web browser once, before all tests in present class."""
-        driver_settings = TestSettings()
-        self.driver = webdriver.Chrome(driver_settings.executable_path)
-
-        self.base_url = 'https://autodemo.testoneo.com/en'
-        self.login_page_url = self.base_url + '/login?back=my-account'
-        self.art_page_url = self.base_url + '/9-art'
-        self.clothes_page_url = self.base_url + '/3-clothes'
-        self.accessories_page_url = self.base_url + '/6-accessories'
-
-    @classmethod
-    def tearDownClass(self) -> None:
-        """Method closes web browser once, after all tests in present class."""
-        self.driver.quit()
 
     def driver_get_page_title(self, page_url):
         """
@@ -75,8 +55,7 @@ class LostHatSmokeTests(unittest.TestCase):
         searcher_input_element.send_keys(Keys.ENTER)
         elements_list = driver.find_elements_by_xpath(result_elements_list_xpath)
         actual_number_elements = len(elements_list)
-        self.assertLessEqual(minimum_expected_elements, actual_number_elements, f"Expected number {minimum_expected_elements} "
-                                                                                f"is not less or equal than actual number of "
-                                                                                f"elements found {actual_number_elements}.")
-
-
+        self.assertLessEqual(minimum_expected_elements, actual_number_elements,
+                             f"Expected number {minimum_expected_elements} "
+                             f"is not less or equal than actual number of "
+                             f"elements found {actual_number_elements}.")

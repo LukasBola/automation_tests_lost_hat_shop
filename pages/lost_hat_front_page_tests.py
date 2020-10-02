@@ -1,25 +1,8 @@
-from selenium import webdriver
-import unittest
-from selenium.webdriver.common.keys import Keys
-
-from settings import TestSettings
+from pages.base_page import BaseTestsClass
 
 
-class LostHatFrontPageTests(unittest.TestCase):
+class LostHatFrontTestsClassTests(BaseTestsClass):
     """Tests of front page in front page of Lost Hat shop."""
-
-    def setUp(self) -> None:
-        """Method opens web browser before every single test in present class."""
-
-        driver_settings = TestSettings()
-        self.driver = webdriver.Chrome(driver_settings.executable_path)
-        self.base_url = 'https://autodemo.testoneo.com/en'
-        self.login_page_url = self.base_url + '/login?back=my-account'
-        self.item_url = self.base_url + '/men/1-1-hummingbird-printed-t-shirt.html'
-
-    def tearDown(self) -> None:
-        """Method closes web browser after every single test in present class."""
-        self.driver.quit()
 
     def test_slider_presention(self):
         driver = self.driver
@@ -107,4 +90,4 @@ class LostHatFrontPageTests(unittest.TestCase):
             with self.subTest(actual_price_text):
                 print(f"The price of element on page {self.base_url}: {actual_price_text}")
                 self.assertIn(expected_currency, actual_price_text, f"Actual currency '{actual_price_text}'"
-                                                                       f"is different than expected '{expected_currency}'.")
+                                                                    f"is different than expected '{expected_currency}'.")

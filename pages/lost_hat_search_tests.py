@@ -1,31 +1,16 @@
-from selenium import webdriver
-import unittest
+from pages.base_page import BaseTestsClass
+
 from selenium.webdriver.common.keys import Keys
 
-from settings import TestSettings
 
-
-class LostHatSearchTests(unittest.TestCase):
+class LostHatSearchTests(BaseTestsClass):
     """Tests of front page in front page of Lost Hat shop."""
-
-    def setUp(self) -> None:
-        """Method opens web browser before every single test in present class."""
-
-        driver_settings = TestSettings()
-        self.driver = webdriver.Chrome(driver_settings.executable_path)
-        self.base_url = 'https://autodemo.testoneo.com/en'
-        self.login_page_url = self.base_url + '/login?back=my-account'
-        self.item_url = self.base_url + '/men/1-1-hummingbird-printed-t-shirt.html'
-
-    def tearDown(self) -> None:
-        """Method closes web browser after every single test in present class."""
-        self.driver.quit()
 
     def test_products_searcher_and_check_results(self):
         driver = self.driver
         searcher_input_xpath = '//*[@class="ui-autocomplete-input"]'
         search_phrase = 'Hummingbird'
-        expected_element_name = 'Hummingbird Printed T-shirt'
+        expected_element_name = 'Hummingbird Printed T-Shirt'
         result_elements_list_xpath = '//*[@class="product-miniature js-product-miniature"]'
         minimum_expected_elements = 1
 
