@@ -1,6 +1,6 @@
 import time
 
-from pages.base_page import BaseTestsClass
+from tests.base_page import BaseTestsClass
 from helpers import functional_helpers as fh
 
 

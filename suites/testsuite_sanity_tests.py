@@ -1,7 +1,7 @@
 import unittest
 
-from pages.lost_hat_login_page_tests import LostHatLoginPageTests
-from pages.lost_hat_front_page_tests import LostHatFrontTestsClassTests
+from tests.lost_hat_login_page_tests import LostHatLoginPageTests
+from tests.lost_hat_front_page_tests import LostHatFrontTestsClassTests
 
 
 def sanity_suite():

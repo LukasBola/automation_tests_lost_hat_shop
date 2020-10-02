@@ -1,6 +1,6 @@
 import unittest
 
-from pages.lost_hat_smoke_tests import LostHatSmokeTests
+from tests.lost_hat_smoke_tests import LostHatSmokeTests
 
 
 def smoke_suite():

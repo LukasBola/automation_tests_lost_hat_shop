@@ -1,4 +1,4 @@
-from pages.base_page import BaseTestsClass
+from tests.base_page import BaseTestsClass
 
 
 class LostHatFrontTestsClassTests(BaseTestsClass):

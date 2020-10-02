@@ -1,4 +1,4 @@
-from pages.base_page import BaseTestsClass
+from tests.base_page import BaseTestsClass
 
 from helpers import operational_helpers as oh
 

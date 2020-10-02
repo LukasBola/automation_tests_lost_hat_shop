@@ -1,10 +1,10 @@
 import unittest
 
-from pages.lost_hat_smoke_tests import LostHatSmokeTests
-from pages.lost_hat_front_page_tests import LostHatFrontTestsClassTests
-from pages.lost_hat_product_page_tests import LostHatProductPageTests
-from pages.lost_hat_login_page_tests import LostHatLoginPageTests
-from pages.lost_hat_search_tests import LostHatSearchTests
+from tests.lost_hat_smoke_tests import LostHatSmokeTests
+from tests.lost_hat_front_page_tests import LostHatFrontTestsClassTests
+from tests.lost_hat_product_page_tests import LostHatProductPageTests
+from tests.lost_hat_login_page_tests import LostHatLoginPageTests
+from tests.lost_hat_search_tests import LostHatSearchTests
 
 
 def lost_hat_full_suite():
